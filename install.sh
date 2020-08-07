@@ -24,8 +24,8 @@ function install_cron() {
 	fi
 
 	# check if crontab already installed
-	CRON_EXISTS=$(crontab -l | grep update_yt_list.sh)
-	if [ "${CRON_EXISTS}" != "" ]
+	CRON_EXISTS=$(crontab -l | grep update_yt_list.sh | head -n 1)
+	if [ "${CRON_EXISTS}" == "" ]
 	then
 		echo "*/15 * * * * bash ${DIR}/update_yt_list.sh" >> ./newcron
 		crontab ./newcron
@@ -44,3 +44,6 @@ function install_list() {
 install_dep
 install_list
 install_cron
+
+# first run
+bash ./update_yt_list.sh
