@@ -19,10 +19,11 @@ function install_cron() {
 	fi
 	echo "*/15 * * * * bash ${DIR}/update_yt_list.sh" >> ./newcron
 	crontab ./newcron
+	sed -i 's|DIR=.*|DIR=${DIR}|g' ./update_yt_list.sh
 }
 
 function install_list() {
-	echo "http://${DOMAIN}:${PORT}/youtube-ads-list.txt" >> /etc/pihole/adlists.list
+	echo "add http://${DOMAIN}:${PORT}/youtube-ads-list.txt to your block list"
 }
 
 install_dep
