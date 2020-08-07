@@ -16,7 +16,7 @@ echo "gstaticadssl.l.google.com" >> ./tmp_list.txt
 
 # write new list
 echo "" > /var/www/html/youtube-ads-list.txt
-echo ./tmp_list.txt | sort -nr | uniq >> /var/www/html/youtube-ads-list.txt
+cat ./tmp_list.txt | sort -nr | uniq >> /var/www/html/youtube-ads-list.txt
 
 rm ./tmp_list.txt
 
