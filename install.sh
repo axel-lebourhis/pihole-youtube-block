@@ -11,15 +11,30 @@ function install_dep() {
 }
 
 function install_cron() {
+	# clean repo
+	rm -f ./newcron
+	# set update script executable
 	chmod +x ./update_yt_list.sh
+
+	# check current crontab
 	CRON_SAVE=$(crontab -l)
 	if [ "${CRON_SAVE}" != "no crontab for ${USER}" ]
 	then
 		echo "${CRON_SAVE}" >> ./newcron
 	fi
-	echo "*/15 * * * * bash ${DIR}/update_yt_list.sh" >> ./newcron
-	crontab ./newcron
-	sed -i 's|DIR=.*|DIR=${DIR}|g' ./update_yt_list.sh
+
+	# check if crontab already installed
+	CRON_EXISTS=$(crontab -l | grep update_yt_list.sh)
+	if [ "${CRON_EXISTS}" != "" ]
+	then
+		echo "*/15 * * * * bash ${DIR}/update_yt_list.sh" >> ./newcron
+		crontab ./newcron
+	else
+		echo "cron already set up"
+	fi
+
+	# set current pwd in update script
+	sed -i "s|DIR=.*|DIR=${DIR}|g" ./update_yt_list.sh
 }
 
 function install_list() {
