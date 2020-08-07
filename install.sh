@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 DIR=$(pwd)
-DOMAIN=${$1}
+DOMAIN=${1}
 PORT=${2}
 
 function install_dep() {
