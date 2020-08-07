@@ -17,7 +17,7 @@ function install_cron() {
 	then
 		echo "${CRON_SAVE}" >> ./newcron
 	fi
-	cat "*/15 * * * * bash ${DIR}/update_yt_list.sh" >> ./newcron
+	echo "*/15 * * * * bash ${DIR}/update_yt_list.sh" >> ./newcron
 	crontab ./newcron
 }
 
