@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 DIR=
+DATE=$(date)
 
 echo "" > ./tmp_list.txt
 
@@ -15,7 +16,7 @@ grep r*.googlevideo.com /var/log/pihole.log | awk '{print $6}'| grep ^r | sort -
 echo "gstaticadssl.l.google.com" >> ./tmp_list.txt
 
 # write new list
-echo "" > /var/www/html/youtube-ads-list.txt
+echo "last updated: ${DATE}" > /var/www/html/youtube-ads-list.txt
 cat ./tmp_list.txt | sort -nr | uniq >> /var/www/html/youtube-ads-list.txt
 
 rm ./tmp_list.txt
